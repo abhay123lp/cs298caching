@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="UserSimilarityMatrix" basedir="." default="help">
+
+	<!-- ========================================= -->
+
+	<target name='help'>
+		<echo>
+			Web Service - data tuple example 
+			
+			Requires:
+				1. Axis2 (built against v1.5.1)
+				2. Tomcat (1.6.x)
+			
+			Build Notes:
+				1. Build server and deploy before building the client as
+				   it depends on the service (.aar) for the WSDL.
+				2. Modify properties axis2.home, tomcat.home, and wsdl to 
+				   your environment.
+			
+			Primary Targets:
+				1. Server: aar deploy
+				2. Client: compile.client demo
+			
+			Yelp !! Help !! Yelp !!
+			
+			:) :) :)
+		</echo>
+	</target>
+	
+	<!-- ========================================= -->
+	
+	<target name="init">
+		<property name="jarname" value="UserSimilarity" />
+		<property name="src.dir" value="${basedir}/src" />
+		<property name="classes.dir" value="${basedir}/classes" />
+		<property name="out.dir" value="${basedir}/build" />
+		<property name="jar.name" value="{jarname}.jar" />
+	</target>
+	
+	<!-- ========================================= -->
+	<target name="build" depends="clean,init">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${out.dir}" />
+			<!-- == Compile the Source to JAR File --> 
+				<javac srcdir="${src.dir}" destdir="${classes.dir}">
+					<classpath>
+						<pathelement location="${classes.dir}" />
+					</classpath>
+				</javac>
+ 			<!-- == Compile the Source to JAR File -->
+	</target>
+
+	<!-- ========================================= -->
+	<target name='clean' depends='init'>
+		<delete dir='${build.dir}' />
+		<delete dir='${basedir}/classes' />
+		<mkdir dir='${basedir}/classes' />
+	</target>
+	
+	<!-- ========================================= -->
+	
+	<target name="run" depends="clean,build">
+		<java classname="com.sjsu.edu.uniqueusers.LogFileReaderTest" fork="true">
+			<classpath path="${basedir}/classes">
+			</classpath>
+		</java>
+	</target>
+
+	<!-- ========================================= -->
+</project>
