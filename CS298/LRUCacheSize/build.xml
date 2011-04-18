@@ -1,0 +1,42 @@
+<project name="Cache" basedir="." default="help">
+	
+	<target name="help" depends="init">
+		<echo>"${basedir}/src"</echo>
+	</target>
+
+	<target name="init">
+		<property name="src.dir" value="${basedir}/src" />
+		<property name="test.dir" value="${basedir}/test" />
+		<property name="classes.dir" value="${basedir}/classes" />
+		<property name="out.dir" value="${basedir}/build" />
+		<property name="java.home" value="C:\Program Files\Java\jdk1.6.0_21"/>
+		<property name="junit.home" value="E:\ManualJARRepo\junit"/>
+	</target>
+	
+	 <target name="build" depends="init,clean">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}">
+		<classpath>
+			<fileset dir="${java.home}">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${junit.home}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+		</javac>
+	</target>
+	
+	<target name="clean" depends="init">
+	 	<delete dir="${classes.dir}"/>
+	 	<delete dir="${out.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${out.dir}"/>
+	</target>
+	
+	<target name="run" depends="init,build">
+	  <java classname="com.sjsu.cache.lru.test.LRUTest" fork="true">
+	    <classpath path="${classes.dir}"/>
+	   </java>
+	</target>
+
+</project>
